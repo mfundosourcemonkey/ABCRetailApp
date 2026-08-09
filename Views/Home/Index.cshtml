@@ -1,0 +1,47 @@
+﻿@{
+    ViewData["Title"] = "ABC Retail";
+}
+
+<div class="text-center mb-4">
+    <h1 class="display-4">ABC Retail</h1>
+    <p class="lead">Cloud order processing built on Azure Storage: Tables, Blobs, Queues, and Files.</p>
+</div>
+
+<div class="row row-cols-1 row-cols-md-4 g-4">
+    <div class="col">
+        <div class="card h-100 text-center">
+            <div class="card-body">
+                <h5 class="card-title">Customers</h5>
+                <p class="card-text">Customer profiles stored in Azure Table Storage.</p>
+                <a asp-controller="Customers" asp-action="Index" class="btn btn-outline-primary">View Customers</a>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card h-100 text-center">
+            <div class="card-body">
+                <h5 class="card-title">Products</h5>
+                <p class="card-text">Product catalog and images stored in Table &amp; Blob Storage.</p>
+                <a asp-controller="Products" asp-action="Index" class="btn btn-outline-primary">View Products</a>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card h-100 text-center">
+            <div class="card-body">
+                <h5 class="card-title">Orders</h5>
+                <p class="card-text">Order and inventory transactions stored in Azure Queue Storage.</p>
+                <a asp-controller="Orders" asp-action="Index" class="btn btn-outline-primary">View Orders</a>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card h-100 text-center">
+            <div class="card-body">
+                <h5 class="card-title">Logs</h5>
+                <p class="card-text">Application log files stored in Azure File Storage.</p>
+                <a asp-controller="Logs" asp-action="Index" class="btn btn-outline-primary">View Logs</a>
+            </div>
+        </div>
+    </div>
+</div>

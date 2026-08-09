@@ -1,0 +1,33 @@
+@model List<string>
+@{
+    ViewData["Title"] = "Log Files";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1>Log Files</h1>
+    <a class="btn btn-primary" asp-action="Upload">Upload File</a>
+</div>
+<p class="text-muted">Log files are stored in Azure File Storage. Customer, product, and order actions automatically write a log entry here.</p>
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-warning">@ViewBag.Error</div>
+}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>File Name</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var fileName in Model)
+        {
+            <tr>
+                <td>@fileName</td>
+                <td><a class="btn btn-sm btn-outline-primary" asp-action="Download" asp-route-fileName="@fileName">Download</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
