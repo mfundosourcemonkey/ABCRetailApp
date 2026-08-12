@@ -52,6 +52,29 @@ namespace ABCRetailApp.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        public async Task<IActionResult> Edit(string partitionKey, string rowKey)
+        {
+            var customer = await _customerTable.GetEntityAsync(partitionKey, rowKey);
+            if (customer == null)
+            {
+                return NotFound();
+            }
+            return View(customer);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(CustomerProfile customer)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(customer);
+            }
+
+            await _customerTable.UpdateEntityAsync(customer);
+            return RedirectToAction(nameof(Index));
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(string partitionKey, string rowKey)

@@ -6,6 +6,7 @@ namespace ABCRetailApp.Services
     {
         Task InitializeAsync();
         Task AddEntityAsync(T entity);
+        Task UpdateEntityAsync(T entity);
         Task<List<T>> GetAllAsync();
         Task<T?> GetEntityAsync(string partitionKey, string rowKey);
         Task DeleteEntityAsync(string partitionKey, string rowKey);

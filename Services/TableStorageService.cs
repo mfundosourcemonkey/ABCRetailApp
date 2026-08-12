@@ -22,6 +22,11 @@ namespace ABCRetailApp.Services
             await _tableClient.AddEntityAsync(entity);
         }
 
+        public async Task UpdateEntityAsync(T entity)
+        {
+            await _tableClient.UpdateEntityAsync(entity, ETag.All, TableUpdateMode.Replace);
+        }
+
         public async Task<List<T>> GetAllAsync()
         {
             var results = new List<T>();

@@ -3,17 +3,20 @@
     ViewData["Title"] = "Log Files";
 }
 
-<div class="d-flex justify-content-between align-items-center mb-3">
-    <h1>Log Files</h1>
+<div class="d-flex justify-content-between align-items-center mb-3 abc-page-header">
+    <div>
+        <h1>Log Files</h1>
+        <p class="text-muted mb-0">Log files are stored in Azure File Storage. Customer, product, and order actions automatically write a log entry here.</p>
+    </div>
     <a class="btn btn-primary" asp-action="Upload">Upload File</a>
 </div>
-<p class="text-muted">Log files are stored in Azure File Storage. Customer, product, and order actions automatically write a log entry here.</p>
 
 @if (ViewBag.Error != null)
 {
     <div class="alert alert-warning">@ViewBag.Error</div>
 }
 
+<div class="table-responsive-card">
 <table class="table table-striped">
     <thead>
         <tr>
@@ -31,3 +34,4 @@
         }
     </tbody>
 </table>
+</div>

@@ -80,6 +80,64 @@ namespace ABCRetailApp.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        public async Task<IActionResult> Edit(string partitionKey, string rowKey)
+        {
+            var product = await _productTable.GetEntityAsync(partitionKey, rowKey);
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            return View(new ProductEditViewModel
+            {
+                PartitionKey = product.PartitionKey,
+                RowKey = product.RowKey,
+                Name = product.Name,
+                Description = product.Description,
+                Price = product.Price,
+                StockQuantity = product.StockQuantity,
+                CurrentImageUrl = product.ImageUrl,
+                CurrentImageFileName = product.ImageFileName
+            });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(ProductEditViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var imageUrl = model.CurrentImageUrl;
+            var imageFileName = model.CurrentImageFileName;
+
+            if (model.ImageFile != null)
+            {
+                (imageUrl, imageFileName) = await _blobStorage.UploadAsync(model.ImageFile);
+                if (!string.IsNullOrEmpty(model.CurrentImageFileName))
+                {
+                    await _blobStorage.DeleteAsync(model.CurrentImageFileName);
+                }
+            }
+
+            var product = new Product
+            {
+                PartitionKey = model.PartitionKey,
+                RowKey = model.RowKey,
+                Name = model.Name,
+                Description = model.Description,
+                Price = model.Price,
+                StockQuantity = model.StockQuantity,
+                ImageUrl = imageUrl,
+                ImageFileName = imageFileName
+            };
+            await _productTable.UpdateEntityAsync(product);
+
+            return RedirectToAction(nameof(Index));
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(string partitionKey, string rowKey, string imageFileName)
