@@ -4,3 +4,5 @@ obj/
 *.user
 publish/
 publish.zip
+local.settings.json
+ABCRetailApp.Functions/publish.zip

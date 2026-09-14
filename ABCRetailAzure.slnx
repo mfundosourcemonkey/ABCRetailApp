@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="ABCRetailApp.csproj" />
+  <Project Path="ABCRetailApp.Functions/ABCRetailApp.Functions.csproj" />
+  <Project Path="ABCRetailApp.Shared/ABCRetailApp.Shared.csproj" />
+</Solution>
