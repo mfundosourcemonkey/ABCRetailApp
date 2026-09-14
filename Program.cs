@@ -1,6 +1,6 @@
 using System.Globalization;
-using ABCRetailApp.Models;
-using ABCRetailApp.Services;
+using ABCRetailApp.Shared.Models;
+using ABCRetailApp.Shared.Services;
 using Microsoft.AspNetCore.Localization;
 
 // Pin form parsing (e.g. Price="99.99") to a fixed culture, independent of the host OS locale.

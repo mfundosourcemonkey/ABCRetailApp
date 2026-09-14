@@ -1,4 +1,4 @@
-namespace ABCRetailApp.Models
+namespace ABCRetailApp.Shared.Models
 {
     public class AzureStorageOptions
     {

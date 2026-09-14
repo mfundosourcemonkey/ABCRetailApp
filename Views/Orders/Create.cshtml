@@ -1,4 +1,4 @@
-@model ABCRetailApp.Models.OrderQueueMessage
+@model ABCRetailApp.Shared.Models.OrderQueueMessage
 @{
     ViewData["Title"] = "New Order / Inventory Message";
 }
@@ -10,7 +10,7 @@
 
     <div class="form-group mb-3">
         <label asp-for="MessageType" class="form-label"></label>
-        <select asp-for="MessageType" class="form-select" asp-items="Html.GetEnumSelectList<ABCRetailApp.Models.QueueMessageType>()"></select>
+        <select asp-for="MessageType" class="form-select" asp-items="Html.GetEnumSelectList<ABCRetailApp.Shared.Models.QueueMessageType>()"></select>
     </div>
     <div class="form-group mb-3">
         <label asp-for="ItemName" class="form-label"></label>

@@ -1,6 +1,6 @@
 using Azure.Data.Tables;
 
-namespace ABCRetailApp.Services
+namespace ABCRetailApp.Shared.Services
 {
     public interface ITableStorageService<T> where T : class, ITableEntity, new()
     {

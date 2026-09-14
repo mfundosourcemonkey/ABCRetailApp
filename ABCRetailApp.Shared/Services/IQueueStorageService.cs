@@ -1,6 +1,6 @@
-using ABCRetailApp.Models;
+using ABCRetailApp.Shared.Models;
 
-namespace ABCRetailApp.Services
+namespace ABCRetailApp.Shared.Services
 {
     public interface IQueueStorageService
     {

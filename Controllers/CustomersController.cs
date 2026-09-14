@@ -1,5 +1,5 @@
-using ABCRetailApp.Models;
-using ABCRetailApp.Services;
+using ABCRetailApp.Shared.Models;
+using ABCRetailApp.Shared.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ABCRetailApp.Controllers

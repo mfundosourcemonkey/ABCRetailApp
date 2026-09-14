@@ -1,7 +1,7 @@
 using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
 
-namespace ABCRetailApp.Services
+namespace ABCRetailApp.Shared.Services
 {
     public class BlobStorageService : IBlobStorageService
     {
@@ -17,13 +17,12 @@ namespace ABCRetailApp.Services
             await _containerClient.CreateIfNotExistsAsync(PublicAccessType.Blob);
         }
 
-        public async Task<(string Url, string FileName)> UploadAsync(IFormFile file)
+        public async Task<(string Url, string FileName)> UploadAsync(Stream content, string fileName, string contentType)
         {
-            var fileName = $"{Guid.NewGuid()}_{Path.GetFileName(file.FileName)}";
-            var blobClient = _containerClient.GetBlobClient(fileName);
-            await using var stream = file.OpenReadStream();
-            await blobClient.UploadAsync(stream, new BlobHttpHeaders { ContentType = file.ContentType });
-            return (blobClient.Uri.ToString(), fileName);
+            var blobName = $"{Guid.NewGuid()}_{Path.GetFileName(fileName)}";
+            var blobClient = _containerClient.GetBlobClient(blobName);
+            await blobClient.UploadAsync(content, new BlobHttpHeaders { ContentType = contentType });
+            return (blobClient.Uri.ToString(), blobName);
         }
 
         public async Task<List<string>> ListBlobNamesAsync()

@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using Azure;
 using Azure.Data.Tables;
 
-namespace ABCRetailApp.Models
+namespace ABCRetailApp.Shared.Models
 {
     public class CustomerProfile : ITableEntity
     {

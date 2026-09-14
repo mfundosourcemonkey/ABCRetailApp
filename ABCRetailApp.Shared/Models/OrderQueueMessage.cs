@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace ABCRetailApp.Models
+namespace ABCRetailApp.Shared.Models
 {
     public enum QueueMessageType
     {

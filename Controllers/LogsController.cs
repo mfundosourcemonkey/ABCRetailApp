@@ -1,4 +1,4 @@
-using ABCRetailApp.Services;
+using ABCRetailApp.Shared.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ABCRetailApp.Controllers
@@ -43,7 +43,8 @@ namespace ABCRetailApp.Controllers
 
             try
             {
-                await _fileShare.UploadFileAsync(file);
+                await using var stream = file.OpenReadStream();
+                await _fileShare.UploadFileAsync(stream, file.FileName);
             }
             catch (Exception ex)
             {

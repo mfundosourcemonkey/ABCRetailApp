@@ -1,5 +1,6 @@
 using ABCRetailApp.Models;
-using ABCRetailApp.Services;
+using ABCRetailApp.Shared.Models;
+using ABCRetailApp.Shared.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ABCRetailApp.Controllers
@@ -44,7 +45,11 @@ namespace ABCRetailApp.Controllers
                 return View(model);
             }
 
-            var (imageUrl, imageFileName) = await _blobStorage.UploadAsync(model.ImageFile);
+            string imageUrl, imageFileName;
+            await using (var stream = model.ImageFile.OpenReadStream())
+            {
+                (imageUrl, imageFileName) = await _blobStorage.UploadAsync(stream, model.ImageFile.FileName, model.ImageFile.ContentType);
+            }
 
             var product = new Product
             {
@@ -115,7 +120,10 @@ namespace ABCRetailApp.Controllers
 
             if (model.ImageFile != null)
             {
-                (imageUrl, imageFileName) = await _blobStorage.UploadAsync(model.ImageFile);
+                await using (var stream = model.ImageFile.OpenReadStream())
+                {
+                    (imageUrl, imageFileName) = await _blobStorage.UploadAsync(stream, model.ImageFile.FileName, model.ImageFile.ContentType);
+                }
                 if (!string.IsNullOrEmpty(model.CurrentImageFileName))
                 {
                     await _blobStorage.DeleteAsync(model.CurrentImageFileName);

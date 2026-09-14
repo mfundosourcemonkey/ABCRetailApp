@@ -1,7 +1,7 @@
 using Azure;
 using Azure.Data.Tables;
 
-namespace ABCRetailApp.Services
+namespace ABCRetailApp.Shared.Services
 {
     public class TableStorageService<T> : ITableStorageService<T> where T : class, ITableEntity, new()
     {

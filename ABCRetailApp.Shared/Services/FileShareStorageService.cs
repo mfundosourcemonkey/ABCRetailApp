@@ -1,7 +1,7 @@
 using System.Text;
 using Azure.Storage.Files.Shares;
 
-namespace ABCRetailApp.Services
+namespace ABCRetailApp.Shared.Services
 {
     public class FileShareStorageService : IFileShareStorageService
     {
@@ -31,12 +31,21 @@ namespace ABCRetailApp.Services
             await fileClient.UploadAsync(stream);
         }
 
-        public async Task UploadFileAsync(IFormFile file)
+        public async Task UploadFileAsync(Stream content, string fileName)
         {
-            var fileClient = _rootDirectory.GetFileClient(file.FileName);
-            using var stream = file.OpenReadStream();
-            await fileClient.CreateAsync(file.Length);
-            await fileClient.UploadAsync(stream);
+            // ShareFileClient.CreateAsync needs the exact size upfront, so a non-seekable
+            // stream (e.g. an HTTP request body) must be buffered first to know its length.
+            if (!content.CanSeek)
+            {
+                var buffered = new MemoryStream();
+                await content.CopyToAsync(buffered);
+                buffered.Position = 0;
+                content = buffered;
+            }
+
+            var fileClient = _rootDirectory.GetFileClient(fileName);
+            await fileClient.CreateAsync(content.Length);
+            await fileClient.UploadAsync(content);
         }
 
         public async Task<List<string>> ListFileNamesAsync()

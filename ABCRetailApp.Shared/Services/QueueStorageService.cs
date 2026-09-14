@@ -1,9 +1,9 @@
 using System.Text.Json;
-using ABCRetailApp.Models;
+using ABCRetailApp.Shared.Models;
 using Azure.Storage.Queues;
 using Azure.Storage.Queues.Models;
 
-namespace ABCRetailApp.Services
+namespace ABCRetailApp.Shared.Services
 {
     public class QueueStorageService : IQueueStorageService
     {
